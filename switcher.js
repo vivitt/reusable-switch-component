@@ -16,7 +16,7 @@ export default class VivittSwitcher extends HTMLElement{
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'checked') {
             this.setAttribute('aria-checked', this.checked.toString())
-        }
+        } 
     }
     connectedCallback() {
         const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true }); 
@@ -31,6 +31,10 @@ export default class VivittSwitcher extends HTMLElement{
         
         this.mainComp.innerHTML = `
             <style>
+                .vivitt-switcher input {
+                  
+                   
+                }
                 .vivitt-switcher label {
                     display: block;
                     --color: black;
@@ -38,6 +42,24 @@ export default class VivittSwitcher extends HTMLElement{
                     width: var(--container-width);
                     height: calc(var(--container-width) / 2);
                     border: 1px solid var(--color);
+                    position: relative;
+                    cursor: pointer;
+                }
+                .vivitt-switcher label::after {
+                    content: "";
+                    position: absolute;
+                    background-color: var(--color);
+                    --size: calc(var(--container-width) / 2 );
+                    width: var(--size);
+                    height: var(--size);
+                    top: 0px;
+                    left: 0px;
+                    transition: left 300ms;
+                }
+                .vivitt-switcher input:checked ~ label::after{
+                    left: calc(var(--container-width) / 2 );
+                    transition: left 300ms;
+                
                 }
             </style>
             <input
