@@ -2,6 +2,7 @@ export default class VivittSwitcher extends HTMLElement{
     constructor() {
     super();
         this.name = 'switcher' 
+        this.checked = false
     }   
     static get observedAttributes() {
         return ['checked']
@@ -40,10 +41,9 @@ export default class VivittSwitcher extends HTMLElement{
             border-radius: 30px;
             position: relative;
             cursor: pointer;
-            color: var(--color)
-           
+            color: var(--color)   
         }
-        
+
         input:focus ~ label  {
             outline: solid 2px   
         }
@@ -72,6 +72,7 @@ export default class VivittSwitcher extends HTMLElement{
             `;
         this.addEventListener('click', () => {
             this.checked = !this.checked
+            console.log(this.checked)
         })
     }
     attributeChangedCallback(name) {
