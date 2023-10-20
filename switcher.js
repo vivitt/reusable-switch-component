@@ -1,8 +1,7 @@
 export default class VivittSwitcher extends HTMLElement{
     constructor() {
     super();
-        this.name = 'switcher' 
-        this.checked = false
+        this.name = 'switcher'
     }   
     static get observedAttributes() {
         return ['checked']
@@ -65,14 +64,17 @@ export default class VivittSwitcher extends HTMLElement{
             left: var(--size)    
         }
         `
+        this.input = document.createElement('input')
+        this.input.setAttribute('type', 'checkbox')
+        this.input.setAttribute('id', 'switch')
+        this.label = document.createElement('label')
+        this.label.setAttribute('for', 'switch')
+        this.wrapper.appendChild(this.input)
+        this.wrapper.appendChild(this.label)
         this.shadowRoot.appendChild(this.wrapper)
-        this.wrapper.innerHTML = `
-                <input type="checkbox" id="switcher" />
-                <label for=switcher>                   
-            `;
+       
         this.addEventListener('click', () => {
-            this.checked = !this.checked
-            console.log(this.checked)
+            this.checked = this.input.checked
         })
     }
     attributeChangedCallback(name) {
