@@ -1,10 +1,11 @@
 export default class VivittSwitcher extends HTMLElement{
     constructor() {
     super();
-        this.name = 'switcher'
+        this.checked = false
+        
     }   
     static get observedAttributes() {
-        return ['checked']
+        return ['checked', 'label']
     }
     get checked() {
         return this.hasAttribute('checked')
@@ -12,25 +13,59 @@ export default class VivittSwitcher extends HTMLElement{
     set checked(value) {
         this.toggleAttribute('checked', value)
     }
- 
+    
+    get label() {
+        if(this.hasAttribute('label')) {
+            return this.getAttribute('label')
+        }
+    }
+    set label(value) {
+        this.setAttribute('label', value)
+    }
 
     connectedCallback() {
         const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true }); 
         
-        this.wrapper = document.createElement('span')
-        this.wrapper.setAttribute('class','vivitt-switcher');
-    
+        this.input = document.createElement('input')
+        this.input.setAttribute('type', 'checkbox')
+        this.input.setAttribute('id', 'switch')
+        this.input.setAttribute('role', 'switch')
+        this.shadowRoot.appendChild(this.input);
+
+        const switchControl = document.createElement('span')
+        switchControl.setAttribute('class','switch__control');
+        const switchThumb = document.createElement('span')
+        switchThumb.setAttribute('class','switch__thumb');
+        switchControl.appendChild(switchThumb)
+        this.shadowRoot.appendChild(switchControl)
+       
+
+        /* <div part="label" class="switch__label">
+            <slot></slot>
+          </div> */ 
+
+        if(this.label !== '') {
+            this.input.setAttribute('aria-label', this.label)
+        }
+
+        this.addEventListener('click', () => {
+            this.input.checked = !this.input.checked
+            this.checked = this.input.checked
+        })
+
+
         this.__style = document.createElement("style")
      
         this.shadowRoot.appendChild(this.__style);
 
         this.__style.innerHTML = `   
         input {
+            position: absolute;
             opacity: 0;
             width: 0;
             height: 0;
         } 
-        label {
+        .switch__control {
             display: block;
             --color: black;
             --container-width: 100px;
@@ -43,14 +78,15 @@ export default class VivittSwitcher extends HTMLElement{
             color: var(--color)   
         }
 
-        input:focus ~ label  {
+        input:focus ~ .switch__control  {
             outline: solid 2px   
         }
 
-        label::after {
+        .switch__thumb::after {
             content: "🌚";
+            border-radius: 30px;
             position: absolute;
-            //background-color: var(--color);
+           
             --size: calc(var(--container-width) / 2 );
             font-size: var(--size);
             width: var(--size);
@@ -59,27 +95,15 @@ export default class VivittSwitcher extends HTMLElement{
             left: 0px;
             transition: left 300ms;
         }
-        input:checked ~ label::after {
+        input:checked ~ span > span::after  {
             content: "🌞";
             left: var(--size)    
         }
         `
-        this.input = document.createElement('input')
-        this.input.setAttribute('type', 'checkbox')
-        this.input.setAttribute('id', 'switch')
-        this.label = document.createElement('label')
-        this.label.setAttribute('for', 'switch')
-        this.wrapper.appendChild(this.input)
-        this.wrapper.appendChild(this.label)
-        this.shadowRoot.appendChild(this.wrapper)
-       
-        this.addEventListener('click', () => {
-            this.checked = this.input.checked
-        })
     }
     attributeChangedCallback(name) {
         if (name === 'checked') {
-            this.setAttribute('aria-checked', this.checked.toString())
+            this.input.setAttribute('aria-checked', this.checked.toString())
         } 
     }  
    
