@@ -1,21 +1,32 @@
-# Title
-Description in a few words.
-A dark/light mode switcher component.
+# Vivitt switcher component
+A web component switcher element.
+
 # Installation
-This is a web component. You can copy it and made the style changes you need to use it into your project. 
-Snippet to copy and paste with your install script.
+This is single file component that you can copy and use in any js based project. 
+You can made the style changes you need by modifing the CSS inside the <style></style> element. 
+
 # Usage
-A snippet of how any Web Application can call your component with some parameters
+
+
 # Attributes
-| Name | Type | Description | Optional |
-| label | String | label for the switcher |
+| Name | Type | Description | 
+| ---- | ---- | ----------- |
+| label | String | label for the switcher | 
 | checked | Boolean | current checked status for the switcher
-| disabled | 
+| disabled | Boolean | wether the switcher is interactable or not
+
 # Properties
-| Name | Type | Description | Optional |
-| includeLabel | Boolean | false | if true, text label will be displayed on the side of the switcher component
+| Name | Type | Description | Default |
+| ---- | ---- | ----------- | -------- |
+| includeLabel | Boolean | false | if true, the label text will be displayed next to the switcher component | false
+
 # Events
 | Name | Type | Description |
-| checked-changed | 
+| ---- | ---- | ----------- | 
+| checked-changed | CustomEvent | emitted ever the checked status of the switcher changes
+
+# Accessibility
+The *label* attribute will provide the label for the input inside the switcher. Make sure this is provided to keep the component accesible.
+
 # Notes
-Add extra things to consider or a _how to contribute_ section.
+Feel free to copy and use, copy, and share this component. Attribution and constructive feedback are always appreciated.
