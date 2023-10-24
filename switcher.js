@@ -2,14 +2,14 @@ export default class VivittSwitcher extends HTMLElement{
     constructor() {
     super();
         this.checked = false
-        this.addEventListener('click', this.handleClick)   
+        this.addEventListener('click', this.handleClick) 
     }   
     handleClick() {
         this.input.checked = !this.input.checked
         this.checked = this.input.checked
     }
     static get observedAttributes() {
-        return ['checked', 'label']
+        return ['checked', 'label', 'include-label']
     }
     get checked() {
         return this.hasAttribute('checked')
@@ -25,6 +25,9 @@ export default class VivittSwitcher extends HTMLElement{
     }
     set label(value) {
         this.setAttribute('label', value)
+    }
+    get includeLabel() {
+        return this.hasAttribute('include-label')
     }
 
     connectedCallback() {
@@ -42,38 +45,52 @@ export default class VivittSwitcher extends HTMLElement{
         switchThumb.setAttribute('class','switch__thumb');
         switchControl.appendChild(switchThumb)
         this.shadowRoot.appendChild(switchControl)
-       
 
-        /* <div part="label" class="switch__label">
-            <slot></slot>
-          </div> */ 
-
-        if(this.label !== '') {
+        if(this.label !== '' && !this.includeLabel) {
             this.input.setAttribute('aria-label', this.label)
+        } else if(this.includeLabel) {
+            this.input.setAttribute('aria-labelledby', this.label)
+            const label = document.createElement('span')
+            label.setAttribute('id', this.label)
+            label.innerHTML = this.label
+            this.shadowRoot.prepend(label);
         }
 
         this.__style = document.createElement("style")
      
         this.shadowRoot.appendChild(this.__style);
 
-        this.__style.innerHTML = `   
+        this.__style.innerHTML = `  
+        :host {
+            display: flex;
+            align-items: center;
+        } 
+        
+        span:first-of-type {
+            font-family: "Gill Sans", sans-serif;
+            font-size: 1.2em;
+            padding-inline-end: 0.3em;
+        }
+
         input {
             position: absolute;
             opacity: 0;
             width: 0;
             height: 0;
+            display: flex;
         } 
+
         .switch__control {
             display: block;
             --color: black;
-            --container-width: 100px;
+            --container-width: 5rem;
             width: var(--container-width);
             height: calc(var(--container-width) / 2);
             border: 1px solid var(--color);
-            border-radius: 30px;
+            border-radius: calc(var(--container-width) / 2 );
             position: relative;
             cursor: pointer;
-            color: var(--color)   
+            color: var(--color);
         }
 
         input:focus ~ .switch__control  {
@@ -82,20 +99,40 @@ export default class VivittSwitcher extends HTMLElement{
 
         .switch__thumb::after {
             content: "🌚";
-            border-radius: 30px;
             position: absolute;
-           
             --size: calc(var(--container-width) / 2 );
             font-size: var(--size);
             width: var(--size);
             height: var(--size);
-            top: -6px;
+            top: -0.12em;
             left: 0px;
             transition: left 300ms;
         }
         input:checked ~ span > span::after  {
             content: "🌞";
-            left: var(--size)    
+            left: calc(var(--size)*1.1); 
+        } 
+        @media (max-width: 400px) {
+            :host {
+                flex-direction: column; 
+            }
+            .switch__control {
+                height: var(--container-width);
+                width: calc(var(--container-width)/2);
+            } 
+            .switch__thumb::after {
+                top: -0.12em;
+                left: 0px;
+                transition: top 300ms;
+            }
+            input:checked ~ span > span::after {
+                top: calc(var(--size)/1.2); 
+                left: 0px;
+            }
+            span:first-of-type {
+                padding-inline-end: 0px;
+                padding-bottom: 0.3em;
+            }
         }
         `
     }
