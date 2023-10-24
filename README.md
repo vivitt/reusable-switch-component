@@ -8,9 +8,14 @@ Snippet to copy and paste with your install script.
 A snippet of how any Web Application can call your component with some parameters
 # Attributes
 | Name | Type | Description | Optional |
+| label | String | label for the switcher |
+| checked | Boolean | current checked status for the switcher
+| disabled | 
 # Properties
 | Name | Type | Description | Optional |
+| includeLabel | Boolean | false | if true, text label will be displayed on the side of the switcher component
 # Events
 | Name | Type | Description |
+| checked-changed | 
 # Notes
 Add extra things to consider or a _how to contribute_ section.

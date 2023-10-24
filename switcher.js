@@ -2,8 +2,12 @@ export default class VivittSwitcher extends HTMLElement{
     constructor() {
     super();
         this.checked = false
-        
+        this.addEventListener('click', this.handleClick)   
     }   
+    handleClick() {
+        this.input.checked = !this.input.checked
+        this.checked = this.input.checked
+    }
     static get observedAttributes() {
         return ['checked', 'label']
     }
@@ -47,12 +51,6 @@ export default class VivittSwitcher extends HTMLElement{
         if(this.label !== '') {
             this.input.setAttribute('aria-label', this.label)
         }
-
-        this.addEventListener('click', () => {
-            this.input.checked = !this.input.checked
-            this.checked = this.input.checked
-        })
-
 
         this.__style = document.createElement("style")
      
@@ -104,6 +102,12 @@ export default class VivittSwitcher extends HTMLElement{
     attributeChangedCallback(name) {
         if (name === 'checked') {
             this.input.setAttribute('aria-checked', this.checked.toString())
+            const event = new CustomEvent('checked-changed', {
+                bubbles: true,
+                composed: true,
+                detail: this.checked
+              });
+              this.dispatchEvent(event);
         } 
     }  
    
