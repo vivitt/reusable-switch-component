@@ -5,8 +5,10 @@ export default class VivittSwitcher extends HTMLElement{
         this.addEventListener('click', this.handleClick) 
     }   
     handleClick() {
-        this.input.checked = !this.input.checked
-        this.checked = this.input.checked
+        if(!this.disabled) {
+            this.input.checked = !this.input.checked
+            this.checked = this.input.checked
+        }    
     }
     static get observedAttributes() {
         return ['checked', 'label', 'include-label']
@@ -28,6 +30,10 @@ export default class VivittSwitcher extends HTMLElement{
     }
     get includeLabel() {
         return this.hasAttribute('include-label')
+    }
+
+    get disabled() {
+        return this.hasAttribute('disabled')
     }
 
     connectedCallback() {
@@ -52,21 +58,40 @@ export default class VivittSwitcher extends HTMLElement{
             this.input.setAttribute('aria-labelledby', this.label)
             const label = document.createElement('span')
             label.setAttribute('id', this.label)
+           
+            if(this.disabled) {
+                label.setAttribute('class', 'switch__label switch__label--disabled')
+            } else {
+                label.setAttribute('class', 'switch__label')
+            }
             label.innerHTML = this.label
             this.shadowRoot.prepend(label);
         }
 
+        if(this.disabled) {
+            this.input.setAttribute('disabled', true)   
+        }
         this.__style = document.createElement("style")
      
         this.shadowRoot.appendChild(this.__style);
 
-        this.__style.innerHTML = `  
+        this.__style.innerHTML = ` 
         :host {
+            --container-width: 4rem; 
+            --color-control: #c2b9b8;
+            --color-thumb: white;
+            --color-focus: black;
+            --color-label: black;
+            --color-border: black;
+            --color-control-disabled: #E7E7E7;
+            --color-thumb-disabled: #e6dddc;
+            --color-label-disabled: #696564;
             display: flex;
             align-items: center;
         } 
         
-        span:first-of-type {
+        .switch__label {
+            color: var(--color-label);
             font-family: "Gill Sans", sans-serif;
             font-size: 1.2em;
             padding-inline-end: 0.3em;
@@ -81,37 +106,57 @@ export default class VivittSwitcher extends HTMLElement{
         } 
 
         .switch__control {
+            --color: var(--color-control);
             display: block;
-            --color: black;
-            --container-width: 5rem;
+            background-color: var(--color);
             width: var(--container-width);
             height: calc(var(--container-width) / 2);
-            border: 1px solid var(--color);
+            border: 1px solid var(--color-border);
             border-radius: calc(var(--container-width) / 2 );
             position: relative;
             cursor: pointer;
-            color: var(--color);
         }
 
         input:focus ~ .switch__control  {
-            outline: solid 2px   
+            outline: solid 2px var(--color-focus) 
         }
-
+    
         .switch__thumb::after {
-            content: "🌚";
+            --color: var(--color-thumb);
+            content: "";
             position: absolute;
-            --size: calc(var(--container-width) / 2 );
-            font-size: var(--size);
+            background-color: var(--color);
+            --size: calc(var(--container-width) / 2);
             width: var(--size);
             height: var(--size);
-            top: -0.12em;
-            left: 0px;
+            border: 1px solid var(--color-border);
+            border-radius: calc(var(--container-width) / 2 );
+            font-size: var(--size);
+            top: -1px;
+            left: -1px;
             transition: left 300ms;
         }
-        input:checked ~ span > span::after  {
-            content: "🌞";
-            left: calc(var(--size)*1.1); 
+
+        input:checked ~ .switch__control > .switch__thumb::after  {
+            content: "";
+            left: var(--size); 
+            top: -1px;
         } 
+
+        input:disabled ~ .switch__control  {
+            --color-border: var(--color-control);
+            --color: var(--color-control-disabled); 
+        }
+
+        input:disabled ~ .switch__control > .switch__thumb::after  {
+            --color: var(--color-thumb-disabled); 
+        }
+
+        .switch__label--disabled {
+            color: var(--color-label-disabled);
+        }
+      
+
         @media (max-width: 400px) {
             :host {
                 flex-direction: column; 
@@ -121,15 +166,13 @@ export default class VivittSwitcher extends HTMLElement{
                 width: calc(var(--container-width)/2);
             } 
             .switch__thumb::after {
-                top: -0.12em;
-                left: 0px;
                 transition: top 300ms;
             }
-            input:checked ~ span > span::after {
-                top: calc(var(--size)/1.2); 
-                left: 0px;
+            input:checked ~ .switch__control > .switch__thumb::after {
+                left: -1px;
+                top: var(--size);
             }
-            span:first-of-type {
+            .switch__label {
                 padding-inline-end: 0px;
                 padding-bottom: 0.3em;
             }
