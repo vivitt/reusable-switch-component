@@ -43,14 +43,14 @@ export default class VivittSwitcher extends HTMLElement{
         this.input.setAttribute('type', 'checkbox')
         this.input.setAttribute('id', 'switch')
         this.input.setAttribute('role', 'switch')
-        this.shadowRoot.appendChild(this.input);
+        shadow.appendChild(this.input);
 
         const switchControl = document.createElement('span')
         switchControl.setAttribute('class','switch__control');
         const switchThumb = document.createElement('span')
         switchThumb.setAttribute('class','switch__thumb');
         switchControl.appendChild(switchThumb)
-        this.shadowRoot.appendChild(switchControl)
+        shadow.appendChild(switchControl)
 
         if(this.label !== '' && !this.includeLabel) {
             this.input.setAttribute('aria-label', this.label)
@@ -65,7 +65,7 @@ export default class VivittSwitcher extends HTMLElement{
                 label.setAttribute('class', 'switch__label')
             }
             label.innerHTML = this.label
-            this.shadowRoot.prepend(label);
+            shadow.prepend(label);
         }
 
         if(this.disabled) {
@@ -73,7 +73,7 @@ export default class VivittSwitcher extends HTMLElement{
         }
         this.__style = document.createElement("style")
      
-        this.shadowRoot.appendChild(this.__style);
+        shadow.appendChild(this.__style);
 
         this.__style.innerHTML = ` 
         :host {

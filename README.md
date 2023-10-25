@@ -6,7 +6,10 @@ This is single file component that you can copy and use in any js based project.
 You can made the style changes you need by modifing the CSS inside the <style></style> element. 
 
 # Usage
-
+<vivitt-switcher label="switchmode"><vivitt-switcher>
+<vivitt-switcher label="switchmode" disabled><vivitt-switcher>
+<vivitt-switcher label="switchmode" include-label="true"><vivitt-switcher>
+<vivitt-switcher label="switchmode"  include-label="true" disabled><vivitt-switcher>
 
 # Attributes
 | Name | Type | Description | 
