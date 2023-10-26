@@ -1,15 +1,9 @@
 export default class VivittSwitcher extends HTMLElement{
     constructor() {
     super();
-        this.checked = false
-        this.addEventListener('click', this.handleClick) 
+        this.checked = false;
     }   
-    handleClick() {
-        if(!this.disabled) {
-            this.input.checked = !this.input.checked
-            this.checked = this.input.checked
-        }    
-    }
+
     static get observedAttributes() {
         return ['checked', 'label', 'include-label']
     }
@@ -36,6 +30,7 @@ export default class VivittSwitcher extends HTMLElement{
         return this.hasAttribute('disabled')
     }
 
+  
     connectedCallback() {
         const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true }); 
         
@@ -47,10 +42,18 @@ export default class VivittSwitcher extends HTMLElement{
 
         const switchControl = document.createElement('span')
         switchControl.setAttribute('class','switch__control');
+        
+    
         const switchThumb = document.createElement('span')
         switchThumb.setAttribute('class','switch__thumb');
         switchControl.appendChild(switchThumb)
         shadow.appendChild(switchControl)
+        switchControl.addEventListener('click', () => {
+                if(!this.disabled) {
+                    this.input.checked = !this.input.checked
+                    this.checked = this.input.checked
+                }      
+        });
 
         if(this.label !== '' && !this.includeLabel) {
             this.input.setAttribute('aria-label', this.label)
@@ -76,6 +79,7 @@ export default class VivittSwitcher extends HTMLElement{
         shadow.appendChild(this.__style);
 
         this.__style.innerHTML = ` 
+        
         :host {
             --container-width: 4rem; 
             --color-control: #c2b9b8;
@@ -89,6 +93,8 @@ export default class VivittSwitcher extends HTMLElement{
             display: flex;
             align-items: center;
         } 
+
+    
         
         .switch__label {
             color: var(--color-label);
@@ -175,6 +181,14 @@ export default class VivittSwitcher extends HTMLElement{
             .switch__label {
                 padding-inline-end: 0px;
                 padding-bottom: 0.3em;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            :host {
+            --color-thumb: black;
+            --color-focus: white;
+            --color-label: white;
+            --color-border: white;
             }
         }
         `
