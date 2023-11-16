@@ -139,6 +139,7 @@ export default class VivittSwitcher extends HTMLElement{
             --background-border-dark: 1px solid var(--color-border-dark);
             --control-border-dark: 1px solid var(--color-border-dark);
             --control-box-shadow: inset -3px -2px 3px rgba(0,0,0,.3);
+            --control-box-shadow-dark: inset -3px -2px 3px rgba(255,255,255,.4);
         } 
 
     
@@ -240,6 +241,16 @@ export default class VivittSwitcher extends HTMLElement{
         .switch__control.dark  {
             --color: var(--color-control-dark);
             border: var(--control-border-dark);
+            box-shadow: var(--control-box-shadow-dark);
+        }
+        .switch__background--disabled.dark  {
+            --color: var(--color-background-disabled);
+            border: var(--background-border-disabled);
+        }
+        .switch__control--disabled.dark  {
+            --color: var(--color-control-disabled);
+            border: var(--control-border-disabled);
+            box-shadow: var(--control-box-shadow-dark);
         }
         `
     
