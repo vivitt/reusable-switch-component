@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="switcher.js" type="module"></script>    
+        <script src="switcher.js" type="module"></script>  
+        <meta name="color-scheme" content="dark light">  
     </head>
     <body>
-        <div style="color-scheme: light">
+        <div>
+        <div>
             <h3>Switcher</h3>
             <vivitt-switcher label="switchmode"></vivitt-switcher>
             <h3>Switcher disabled</h3>
@@ -14,15 +16,16 @@
             <h3>Optional label disabled </h3>
             <vivitt-switcher label="switchmode" include-label="true" disabled></vivitt-switcher>
         </div>
-        <div style="color-scheme: dark; background-color: black;">
+        <div>
             <h3>Switcher</h3>
-            <vivitt-switcher label="switchmode"></vivitt-switcher>
+            <vivitt-switcher label="switchmode" dark></vivitt-switcher>
             <h3>Switcher disabled</h3>
-            <vivitt-switcher label="switchmode" disabled></vivitt-switcher>
+            <vivitt-switcher label="switchmode" disabled dark></vivitt-switcher>
             <h3>Optional label</h3>
-            <vivitt-switcher label="switchmode" include-label="true"></vivitt-switcher>
+            <vivitt-switcher label="switchmode" dark include-label="true"></vivitt-switcher>
             <h3>Optional label disabled </h3>
-            <vivitt-switcher label="switchmode" include-label="true" disabled></vivitt-switcher>
+            <vivitt-switcher label="switchmode" dark include-label="true" disabled></vivitt-switcher>
         </div>
+    </div>
     </body>
 </html>
