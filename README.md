@@ -7,13 +7,10 @@ You can made the style changes you need by modifing the CSS inside the <style></
 
 # Usage
 ```html
-    <vivitt-switcher label="switchmode"></vivitt-switcher>
+    <vivitt-switcher label="dark mode"></vivitt-switcher>
     
-    <vivitt-switcher label="switchmode" disabled></vivitt-switcher>
-    
-    <vivitt-switcher label="switchmode" include-label="true"></vivitt-switcher>
-    
-    <vivitt-switcher label="switchmode" include-label="true" disabled></vivitt-switcher>
+    <vivitt-switcher label="switchmode" include-label dark></vivitt-switcher>
+   
 ```
 
 # Attributes
