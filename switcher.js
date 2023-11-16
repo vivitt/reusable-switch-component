@@ -40,30 +40,30 @@ export default class VivittSwitcher extends HTMLElement{
             const shadow = this.attachShadow({ mode: 'open', delegatesFocus: true }); 
         
             shadow.innerHTML = `
-                <button role="switch" class="switch__control" id="control">
-                    <span class="switch__thumb" id="thumb"> 
+                <button role="switch" class="switch__background" id="background">
+                    <span class="switch__control" id="control"> 
                     </span>
 
                 </button>
                 `
 
+            const switchBackground = shadow.getElementById('background')
             const switchControl = shadow.getElementById('control')
-            const switchThumb = shadow.getElementById('thumb')
 
-            switchControl.addEventListener('click', () => {
+            switchBackground.addEventListener('click', () => {
                 if(!this.disabled) {
                     // this.input.checked = !this.input.checked
                     // this.checked = this.input.checked;
                     if(this.checked) {
                         this.checked = false;
-                        switchControl.setAttribute('aria-checked', false)
+                        switchBackground.setAttribute('aria-checked', false)
+                        switchBackground.classList.remove('checked')
                         switchControl.classList.remove('checked')
-                        switchThumb.classList.remove('checked')
                     } else {
                         this.checked = true;
-                        switchControl.setAttribute('aria-checked', true)
+                        switchBackground.setAttribute('aria-checked', true)
+                        switchBackground.classList.add('checked')
                         switchControl.classList.add('checked')
-                        switchThumb.classList.add('checked')
                     }
                     
                 }      
@@ -72,7 +72,7 @@ export default class VivittSwitcher extends HTMLElement{
 
         
             if(this.includeLabel) {
-                switchControl.setAttribute('aria-labelledby', this.label)
+                switchBackground.setAttribute('aria-labelledby', this.label)
                 const label = document.createElement('span')
                 label.setAttribute('id', this.label)
                 label.classList.add('switch__label')
@@ -85,18 +85,18 @@ export default class VivittSwitcher extends HTMLElement{
                 label.innerHTML = this.label
                 shadow.prepend(label);
             } else {
-                switchControl.setAttribute('aria-label', this.label)
+                switchBackground.setAttribute('aria-label', this.label)
             }
         
             if(this.disabled) {
                 this.setAttribute('disabled', true);
-                switchControl.classList.add('switch__control--disabled')
-                switchThumb.classList.add('switch__thumb--disabled') 
+                switchBackground.classList.add('switch__background--disabled')
+                switchControl.classList.add('switch__control--disabled') 
             }
 
             if(this.dark) {
+                switchBackground.classList.add('dark')
                 switchControl.classList.add('dark')
-                switchThumb.classList.add('dark')
             }
 
             this.__style = document.createElement("style")
@@ -111,34 +111,34 @@ export default class VivittSwitcher extends HTMLElement{
             display: flex;
             align-items: center;
 
+            --color-background: white;
+            --color-background-checked: black;
             --color-control: white;
-            --color-control-checked: black;
-            --color-thumb: white;
             --color-label: black;
             --color-border: black;
 
+            --color-background-dark: black;
+            --color-background-checked-dark: white;
             --color-control-dark: black;
-            --color-control-checked-dark: white;
-            --color-thumb-dark: black;
             --color-label-dark: white;
             --color-border-dark: white;
 
-            --color-control-disabled: #E7E7E7;
-            --color-thumb-disabled: #e6dddc;
+            --color-background-disabled: #E7E7E7;
+            --color-control-disabled: #e6dddc;
             --color-label-disabled: #c2b9b8;
             --color-border-disabled: #c2b9b8;
        
-            --color-control-dark-disabled: #E7E7E7;
-            --color-thumb-dark-disabled: #e6dddc;
+            --color-background-dark-disabled: #E7E7E7;
+            --color-control-dark-disabled: #e6dddc;
             --color-label-dark-disabled: #c2b9b8;
            
+            --background-border: 1px solid var(--color-border);
+            --background-border-disabled: 1px solid var(--color-border-disabled);
             --control-border: 1px solid var(--color-border);
             --control-border-disabled: 1px solid var(--color-border-disabled);
-            --thumb-border: 1px solid var(--color-border);
-            --thumb-border-disabled: 1px solid var(--color-border-disabled);
+            --background-border-dark: 1px solid var(--color-border-dark);
             --control-border-dark: 1px solid var(--color-border-dark);
-            --thumb-border-dark: 1px solid var(--color-border-dark);
-            --thumb-box-shadow: inset -3px -2px 3px rgba(0,0,0,.3);
+            --control-box-shadow: inset -3px -2px 3px rgba(0,0,0,.3);
         } 
 
     
@@ -150,39 +150,39 @@ export default class VivittSwitcher extends HTMLElement{
             padding-inline-end: 0.3em;
         }
 
-        .switch__control {
-            --color: var(--color-control);
+        .switch__background {
+            --color: var(--color-background);
             display: block;
             background-color: var(--color);
             width: var(--container-width);
             height: calc(var(--container-width) / 3);
-            border: var(--control-border);
+            border: var(--background-border);
             border-radius: calc(var(--container-width) / 2 );
             position: relative;
             cursor: pointer;
             
         }   
 
-        .switch__control--disabled{
+        .switch__background--disabled{
             cursor: default;
-            --color: var(--color-control-disabled);
-            border: var(--control-border-disabled);
+            --color: var(--color-background-disabled);
+            border: var(--background-border-disabled);
         }
 
-        .switch__control:focus ~ .switch__control  {
+        .switch__background:focus ~ .switch__background  {
             outline: solid 2px var(--color-focus) 
         }
     
-        .switch__thumb {
-            --color: var(--color-thumb);
+        .switch__control {
+            --color: var(--color-control);
             position: absolute;
             background-color: var(--color);
             --size: calc(var(--container-width) / 2);
             width: var(--size);
             height: var(--size);
             border-radius: calc(var(--container-width) / 2 );
-            border: var(--thumb-border);
-            box-shadow: var(--thumb-box-shadow);
+            border: var(--control-border);
+            box-shadow: var(--control-box-shadow);
             font-size: var(--size);
             top: -5px;
             left: -1px;
@@ -190,18 +190,18 @@ export default class VivittSwitcher extends HTMLElement{
         }
    
 
-        .switch__thumb--disabled {
-            --color: var(--color-thumb-disabled);
-            border: var(--thumb-border-disabled);
+        .switch__control--disabled {
+            --color: var(--color-control-disabled);
+            border: var(--control-border-disabled);
         }
 
-        .switch__thumb.checked  {
+        .switch__control.checked  {
             left: var(--size); 
             top: -5px;
         } 
 
-        .switch__control.checked {
-            --color: var(--color-control-checked);
+        .switch__background.checked {
+            --color: var(--color-background-checked);
         }
 
         .switch__label--disabled {
@@ -213,15 +213,15 @@ export default class VivittSwitcher extends HTMLElement{
             :host {
                 flex-direction: column; 
             }
-            .switch__control {
+            .switch__background {
                 height: var(--container-width);
                 width: calc(var(--container-width)/3);
             } 
-            .switch__thumb {
+            .switch__control {
                 left: -6px;
                 transition: top 300ms;
             }
-            .switch__thumb.checked {
+            .switch__control.checked {
                 left: -6px;
                 top: var(--size);
             }
@@ -230,16 +230,16 @@ export default class VivittSwitcher extends HTMLElement{
                 padding-bottom: 0.3em;
             }
         }
+        .switch__background.dark  {
+            --color: var(--color-background-dark);
+            border: var(--background-border-dark);
+        }
+        .switch__background.checked.dark {
+            --color: var(--color-background-checked-dark);
+        }
         .switch__control.dark  {
             --color: var(--color-control-dark);
             border: var(--control-border-dark);
-        }
-        .switch__control.checked.dark {
-            --color: var(--color-control-checked-dark);
-        }
-        .switch__thumb.dark  {
-            --color: var(--color-thumb-dark);
-            border: var(--thumb-border-dark);
         }
         `
     
