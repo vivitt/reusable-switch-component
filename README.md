@@ -1,5 +1,5 @@
-# Vivitt switcher component
-A web component switcher element.
+# Reusable switcher web component
+This component provide a control to switch between two possible states. Used as an alternative for the checkbox element.
 
 # Installation
 This is single file component that you can copy and use in any js based project. 
