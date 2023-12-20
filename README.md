@@ -1,15 +1,14 @@
 # Reusable switcher web component
-This component provide a control to switch between two possible states. Used as an alternative for the checkbox element.
+This component provide a control to switch between two possible states. In this case is used as an alternative for the checkbox element to chose between dark and light modes.
 
 # Installation
-This is single file component that you can copy and use in any js based project. 
-You can made the style changes you need by modifing the CSS inside the <style></style> element. 
+This is single file, framework agnostic web component. You can copy it and use inside your project. It is easily customisable by modifing the CSS inside the <style></style> element. 
 
 # Usage
 ```html
-    <vivitt-switcher label="dark mode"></vivitt-switcher>
+    <mode-switcher label="dark mode"></mode-switcher>
     
-    <vivitt-switcher label="switchmode" include-label dark></vivitt-switcher>
+    <mode-switcher label="dark" include-label dark></mode-switcher>
    
 ```
 
@@ -19,12 +18,11 @@ You can made the style changes you need by modifing the CSS inside the <style></
 | label | String | label for the switcher | 
 | checked | Boolean | current checked status for the switcher |
 | disabled | Boolean | wether the switcher is interactable or not |
-| dark | Boolean | add 'dark' class to switcher control and background |
 
 # Properties
 | Name | Type | Description | Default |
 | ---- | ---- | ----------- | -------- |
-| includeLabel | Boolean | false | if true, the label text will be displayed next to the switcher component | false |
+| includeLabel | Boolean | false | if true, text label will display next to the switcher component | false |
 
 # Events
 | Name | Type | Description |

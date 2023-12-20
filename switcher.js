@@ -23,8 +23,8 @@ template.innerHTML = `
 .switch__label {
   color: var(--color-label);
   font-family: var(--label-font-family);
-  font-size: 1.5em;
-  padding-inline-end: 0.3em;
+  font-size: 1.4em;
+  padding-inline-end: 0.5em;
 }
 
 .switch__background {
@@ -101,7 +101,7 @@ content: "🌞";
 `;
 
 export default class VivittSwitcher extends HTMLElement {
-  static is = 'vivitt-switcher';
+  static is = 'mode-switcher';
 
   constructor() {
     super();
@@ -110,7 +110,7 @@ export default class VivittSwitcher extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['disabled', 'checked', 'label'];
+    return ['disabled', 'checked', 'label', 'include-label'];
   }
 
   connectedCallback() {
@@ -120,7 +120,17 @@ export default class VivittSwitcher extends HTMLElement {
     this.handleDisabled();
 
     const switchControl = this.shadowRoot.getElementById('control');
-    switchControl.setAttribute('aria-label', this.label)
+    const switchBackground = this.shadowRoot.getElementById('background');
+    switchControl.setAttribute('aria-label', this.label)        
+
+    if(this.includeLabel) {
+        switchControl.setAttribute('aria-labelledby', this.label)
+        const label = document.createElement('span')
+        label.setAttribute('id', this.label)
+        label.classList.add('switch__label')
+        label.innerHTML = this.label
+        this.shadowRoot.prepend(label);
+    } 
   }
 
   disconnectedCallback() {
@@ -182,6 +192,10 @@ export default class VivittSwitcher extends HTMLElement {
     return this.hasAttribute('disabled');
   }
 
+  get includeLabel() {
+    return this.hasAttribute('include-label')
+}
+
   attributeChangedCallback(name) {
     if (name === 'checked') {
       this.update();
@@ -189,4 +203,4 @@ export default class VivittSwitcher extends HTMLElement {
   }
 }
 
-customElements.define('vivitt-switcher', VivittSwitcher);
+customElements.define('mode-switcher', VivittSwitcher);
