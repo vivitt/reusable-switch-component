@@ -4,7 +4,7 @@ A responsive and accessible component that provides a control to switch between 
 <div style="display: flex">
 <img src="./switcher.gif" alt="switcher component being clicked and changing from off to on, and back to off state" height="156" width="300"/>
 
-<img src="./switcher-light.png" alt="switcher component off" height="78" width="150"/>
+<img src="./switcher-light.png" alt="switcher component off small devices" height="78" width="150"/>
 
 
 </div>
