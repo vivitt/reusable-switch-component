@@ -12,8 +12,8 @@ This component provides a control to switch between two possible states. In this
 The switcher is positioned horizontally in big and medium devices and vertically in small devices of less than 500px.
 
 <div align="center">
-<img src="./switcher-dark.png" alt="switcher component on big devices" height="150" width="200"/>
-<img src="./switcher-light.png" alt="switcher component off small devices" height="150" width="150"/>
+<img src="./switcher-dark.png" alt="switcher component on big devices" height="150" width="250"/>
+<img src="./switcher-light.png" alt="switcher component off small devices" height="250" width="150"/>
 
 </div>
 
