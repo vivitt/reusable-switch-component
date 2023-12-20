@@ -1,8 +1,12 @@
 # Reusable switcher web component
-A responsive and accessible component that provides a control to switch between two possible states. In this case is used as an alternative for the checkbox element to chose between dark and light modes.
+This component provides a control to switch between two possible states. In this case is used as an alternative for the checkbox element to chose between dark and light modes.
 
-<div style="display: flex">
-<img src="./switcher.gif" alt="switcher component being clicked and changing from off to on, and back to off state" height="156" width="300"/>
+<div aling="center">
+<img src="./switcher.gif" alt="switcher component being clicked and changing from off to on, and back to off state" height="200" width="400"/>
+</div>
+
+The switcher is positioned horizontally in big and medium devices and vertically in small devices of less than 500px.
+<div aling="center">
 
 <img src="./switcher-light.png" alt="switcher component off small devices" height="150" width="150"/>
 
