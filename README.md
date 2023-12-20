@@ -13,7 +13,7 @@ The switcher is positioned horizontally in big and medium devices and vertically
 
 <div align="center">
 <img src="./switcher-dark.png" alt="switcher component on big devices" height="150" width="250"/>
-<img src="./switcher-light.png" alt="switcher component off small devices" height="250" width="150"/>
+<img src="./switcher-light.png" alt="switcher component off small devices" height="220" width="150"/>
 
 </div>
 
