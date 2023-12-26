@@ -2,7 +2,7 @@ const template = document.createElement('template');
 template.innerHTML = `
 <style>
 :host {
-  --container-width: 3rem; 
+  --container-width: 40px; 
   display: flex;
   align-items: center;
 
@@ -16,13 +16,16 @@ template.innerHTML = `
   --color-label-dark: white;
   --color-border-background-dark: white;
 
+  --color-control-disabled: #f2f4f7ff;
+  --color-border-disabled: #dedee3ff;
+  --color-background-disabled: #f2f4f7ff;
+
   --background-border: 1px solid var(--color-border);
   --background-border-dark: 1px solid var(--color-border-dark);
 } 
 
 .switch__label {
   color: var(--color-label);
-  font-family: var(--label-font-family);
   font-size: 1.4em;
   padding-inline-end: 0.5em;
 }
@@ -35,38 +38,58 @@ template.innerHTML = `
   width: var(--container-width);
   height: calc(var(--container-width) / 3);
   border: 1px solid var(--color-border);
-  border-radius: calc(var(--container-width) / 2 );
+  border-radius: 30px;
   position: relative;
   cursor: pointer;   
 }   
-
+.switch__background--disabled{
+  cursor: default;
+  --color: var(--color-background-disabled);
+  --color-border: var(--control-border-disabled);
+  border: 1px solid var(--color-border-disabled);
+}
 .switch__control {
   --color: var(--color-control);
+  --color-border: var(--color-border-background);
+  border-radius: 30px;
+  border: 1px solid var(--color-border);
+  width: 20px;
+  height: 20px;
   position: absolute;
- border: none;
+  background-color: var(--color);
   --size: calc(var(--container-width) / 2);
-  font-size: 2.5em;
-  top: -14px;
-  left: -9px;
+  top: -5px;
+  left: -5px;
   transition: left 300ms;
 }
+.switch__control--disabled {
+  --color: var(--color-control-disabled);
+  --color-border: var(--control-border-disabled);
+  border: 1px solid var(--color-border-disabled);
+
+}
 .switch__control:after {
-content: "🌚";
+  content: "";
 }
 
 [aria-checked="true"] > .switch__control  {
+  --color: var(--color-background-dark);
+  --color-border: var(--color-border-background-dark);
+  background-color: var(--color);
+  border: 1px solid var(--color-border);
   left: var(--size); 
-  top: -14px;
+  top: -5px;
 } 
 
 [aria-checked="true"] > .switch__control:after {
-content: "🌞";
+  content: "";
 }
 
 [aria-checked="true"] {
 --color: var(--color-background-dark);
 --color-border: var(--color-border-background-dark);
 }
+
 .switch__background:focus {
   outline-offset: 8px;
 }
@@ -80,11 +103,12 @@ content: "🌞";
       width: calc(var(--container-width)/3);
   } 
   .switch__control {
-      left: -10px;
+      left: -5px;
       transition: top 300ms;
   }
+ 
   [aria-checked="true"] > .switch__control  {
-      left: -10px;
+      left: -5px;
       top: var(--size);
   }
   .switch__label {
@@ -131,6 +155,11 @@ export default class VivittSwitcher extends HTMLElement {
         label.innerHTML = this.label
         this.shadowRoot.prepend(label);
     } 
+    if(this.disabled) {
+      switchBackground.classList.add('switch__background--disabled')
+      switchControl.classList.add('switch__control--disabled')
+     
+  } 
   }
 
   disconnectedCallback() {
