@@ -1,6 +1,6 @@
 <div align="center">
 
-# Reusable switcher web component
+# A fully accessible switcher web component
 
 <img src="./switcher.gif" alt="switcher component being clicked and changing from off to on, and back to off state" height="200" width="400"/>
 
