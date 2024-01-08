@@ -6,8 +6,7 @@
 
 <br/>
 
-This component provides a control to switch between two possible states. In this case is used as an alternative for the checkbox element to chose between dark and light modes.
-
+This component provides an alternative to the checkbox element for switching between two possible states. For example, it can be used as a control to switch between dark and light modes.
 </div>
 <br/>
 
@@ -29,8 +28,27 @@ And vertically in small devices of less than 500px.
 
 
 # Installation
-This is single file, framework agnostic web component. You can copy it and use inside your project. It is easily customisable by modifing the CSS inside the <style></style> element. 
+This is a single file, framework agnostic web component. You can copy it and use inside your project. It is easily customisable by modifing the CSS inside the <style></style> element. 
+```html
+const template = document.createElement('template');
+template.innerHTML = `
+<style>
+// add or modify css styles here
+</style>
+<button role="switch" class="switch__background" id="background">
+    <span id="control" class="switch__control" role='img' id="control"> 
+    </span>
+</button>
+`;
 
+export default class VivittSwitcher extends HTMLElement {
+  static is = 'mode-switcher';
+// ...
+}
+
+customElements.define('mode-switcher', VivittSwitcher);
+ 
+```
 # Usage
 ```html
 <mode-switcher label="dark mode"></mode-switcher>
@@ -60,7 +78,7 @@ Find a [custom usage example here](https://www.viviyanez.dev/).
 | checked-changed | CustomEvent | emitted ever the checked status of the switcher changes
 
 # Accessibility
-Make sure the *label* attribute is provided to keep the component accesible.
+Make sure the *label* attribute is always provided to keep the component accesible.
 
 # Notes
 Feel free to copy and use, copy, and share this component. Attribution and constructive feedback are always appreciated.
