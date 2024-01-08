@@ -3,11 +3,8 @@
 # A fully accessible switcher web component
 
 <img src="./assets/switcher.png" alt="switcher component being clicked and changing from off to on, and back to off state" height="auto" width="400"/>
-
-<br/>
-
-This component provides an alternative to the checkbox element for switching between two possible states. For example, it can be used as a control to switch between dark and light modes.
 </div>
+This component provides an alternative to the checkbox element for switching between two possible states. For example, it can be used as a control to switch between dark and light modes.
 <br/>
 
 # Responsive behaviour
