@@ -34,21 +34,25 @@ template.innerHTML = `
 <style>
 // add or modify css styles here
 </style>
+
 <button role="switch" class="switch__background" id="background">
-    <span id="control" class="switch__control" role='img' id="control"> 
-    </span>
+    <span id="control" class="switch__control" role='img' id="control"></span>
 </button>
 `;
 
 export default class VivittSwitcher extends HTMLElement {
   static is = 'mode-switcher';
+
 // ...
+
 }
 
 customElements.define('mode-switcher', VivittSwitcher);
  
 ```
 # Usage
+You can choose to either visibly show or hide the label for the user. The component also supports a disabled state.
+
 ```html
 <mode-switcher label="dark mode"></mode-switcher>
     
@@ -57,7 +61,7 @@ customElements.define('mode-switcher', VivittSwitcher);
 <mode-switcher label="dark" disabled><mode-switcher>
  
 ```
-Find a [custom usage example here](https://www.viviyanez.dev/).
+Check out an [example of a custom implementation](https://www.viviyanez.dev/).
 
 # Attributes
 | Name | Type | Description | 
