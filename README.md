@@ -13,11 +13,13 @@ The switcher is positioned horizontally in big and medium devices.
 <br/>
 <div align="center">
 <img src="./assets/horizontal.png" alt="switcher component on big devices" height="auto" width="250"/>
+</div>
 <br/>
 <br/>
 And vertically in small devices of less than 500px.
 <br/>
 <br/>
+<div align="center">
 <img src="./assets/vertical.png" alt="switcher component off small devices" height="auto" width="200"/>
 <br/>
 <br/>
