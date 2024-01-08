@@ -28,7 +28,7 @@ And vertically in small devices of less than 500px.
 
 # Installation
 This is a single file, framework agnostic web component. You can copy it and use inside your project. It is easily customisable by modifing the CSS inside the <style></style> element. 
-```html
+```javascript
 const template = document.createElement('template');
 template.innerHTML = `
 <style>
